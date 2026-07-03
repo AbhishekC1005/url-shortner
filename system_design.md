@@ -10,34 +10,34 @@ The system is designed for high-concurrency redirection, separating the read/red
 
 ```mermaid
 graph TD
-    Client[Client Browser]
+    Client["Client Browser"]
     
-    subgraph Frontend [Presentation Layer]
-        ReactApp[React SPA - Vite]
+    subgraph Frontend ["Presentation Layer"]
+        ReactApp["React SPA - Vite"]
     end
     
-    subgraph Backend [Application Layer (Spring Boot)]
-        SecFilter[Spring Security JWT Filter]
-        RedirectController[Redirect Controller]
-        UrlController[URL Mapping Controller]
+    subgraph Backend ["Application Layer (Spring Boot)"]
+        SecFilter["Spring Security JWT Filter"]
+        RedirectController["Redirect Controller"]
+        UrlController["URL Mapping Controller"]
         
-        subgraph CoreServices [Core Application Logic]
-            UrlMappingService[UrlMapping Service]
-            AsyncPool[Async Task Executor - Thread Pool]
-            AnalyticsService[Analytics Service]
+        subgraph CoreServices ["Core Application Logic"]
+            UrlMappingService["UrlMapping Service"]
+            AsyncPool["Async Task Executor - Thread Pool"]
+            AnalyticsService["Analytics Service"]
         end
     end
     
-    subgraph Caching [Caching Layer]
-        Redis[(Redis Cache)]
+    subgraph Caching ["Caching Layer"]
+        Redis[("Redis Cache")]
     end
     
-    subgraph Storage [Database Layer]
-        PostgreSQL[(PostgreSQL Database)]
+    subgraph Storage ["Database Layer"]
+        PostgreSQL[("PostgreSQL Database")]
     end
     
-    subgraph External [External Services]
-        IpApi[Geo-IP REST API - ip-api.com]
+    subgraph External ["External Services"]
+        IpApi["Geo-IP REST API - ip-api.com"]
     end
 
     %% Redirection Traffic
@@ -69,14 +69,14 @@ This sequence diagram illustrates how redirection requests are served in sub-mil
 ```mermaid
 sequenceDiagram
     autonumber
-    actor User as Client Browser
-    participant RedirectCtrl as RedirectController
-    participant UrlService as UrlMappingService
-    participant Redis as Redis Cache
-    participant AsyncPool as Async Thread Pool
-    participant AnalyticsService as AnalyticsService
-    participant DB as PostgreSQL Database
-    participant GeoAPI as Geo-IP API (ip-api.com)
+    actor User as "Client Browser"
+    participant RedirectCtrl as "RedirectController"
+    participant UrlService as "UrlMappingService"
+    participant Redis as "Redis Cache"
+    participant AsyncPool as "Async Thread Pool"
+    participant AnalyticsService as "AnalyticsService"
+    participant DB as "PostgreSQL Database"
+    participant GeoAPI as "Geo-IP API (ip-api.com)"
 
     User->>RedirectCtrl: GET /{shortUrl} (with User-Agent & IP)
     RedirectCtrl->>UrlService: getOriginalUrl(shortUrl, ip, userAgent)
@@ -118,12 +118,12 @@ This flow shows how new short URLs are created securely using a centralized Redi
 ```mermaid
 sequenceDiagram
     autonumber
-    actor Creator as User / React Client
-    participant AuthFilter as JwtAuthenticationFilter
-    participant Controller as UrlMappingController
-    participant Service as UrlMappingService
-    participant Redis as Redis Cache
-    participant DB as PostgreSQL Database
+    actor Creator as "User / React Client"
+    participant AuthFilter as "JwtAuthenticationFilter"
+    participant Controller as "UrlMappingController"
+    participant Service as "UrlMappingService"
+    participant Redis as "Redis Cache"
+    participant DB as "PostgreSQL Database"
 
     Creator->>AuthFilter: POST /api/urls/shorten (Header: Bearer JWT)
     AuthFilter->>Controller: Forward request (if JWT is valid)
