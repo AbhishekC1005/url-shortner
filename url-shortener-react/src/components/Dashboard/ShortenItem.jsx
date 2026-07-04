@@ -41,8 +41,8 @@ const ShortenItem = ({ id, originalUrl, shortUrl, clickCount, createdDate, expir
         }
     };
 
-    const shortLink = `${window.location.host}/s/${shortUrl}`;
-    const fullShortUrl = `${import.meta.env.VITE_REACT_FRONT_END_URL}/s/${shortUrl}`;
+    const shortLink = `${import.meta.env.VITE_BACKEND_URL.replace(/^https?:\/\//, "")}/${shortUrl}`;
+    const fullShortUrl = `${import.meta.env.VITE_BACKEND_URL}/${shortUrl}`;
 
     return (
         <div
@@ -50,14 +50,14 @@ const ShortenItem = ({ id, originalUrl, shortUrl, clickCount, createdDate, expir
         >
             {/* Top row: short URL + click badge */}
             <div className="flex items-start justify-between gap-2">
-                <Link
+                <a
                     target="_blank"
-                    to={fullShortUrl}
+                    href={fullShortUrl}
                     className="text-sm font-semibold hover:underline truncate"
                     style={{ color: "var(--g-blue-500)", fontFamily: "var(--g-font)", maxWidth: "70%" }}
                 >
                     {shortLink}
-                </Link>
+                </a>
                 <div className="flex items-center gap-1 flex-shrink-0 rounded-full px-2 py-0.5" style={{ background: "var(--g-blue-50)" }}>
                     <LuMousePointerClick className="text-[11px]" style={{ color: "var(--g-blue-500)" }} />
                     <span style={{ fontFamily: "var(--g-font)", fontSize: "0.6875rem", fontWeight: 600, color: "var(--g-blue-600)" }}>
@@ -91,15 +91,15 @@ const ShortenItem = ({ id, originalUrl, shortUrl, clickCount, createdDate, expir
                 {/* Action buttons — always visible, compact */}
                 <div className="flex items-center gap-1">
                     {/* Open in new tab */}
-                    <Link
+                    <a
                         target="_blank"
-                        to={fullShortUrl}
+                        href={fullShortUrl}
                         className="p-1.5 rounded-lg transition-colors hover:bg-[#f1f3f4]"
                         title="Open link"
                         style={{ color: "var(--g-text-secondary)" }}
                     >
                         <LuExternalLink className="text-[13px]" />
-                    </Link>
+                    </a>
 
                     {/* Copy */}
                     <CopyToClipboard onCopy={copyHandler} text={fullShortUrl}>

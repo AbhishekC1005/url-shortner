@@ -57,12 +57,12 @@ const AnalyticsDrawer = ({ urlMapping, token, onClose }) => {
               <span className="text-[11px] font-bold text-[#6B7280] uppercase tracking-wider">Link Details</span>
               <div className="flex items-center gap-1.5">
                 <a 
-                  href={`${import.meta.env.VITE_REACT_FRONT_END_URL}/s/${urlMapping.shortUrl}`}
+                  href={`${import.meta.env.VITE_BACKEND_URL}/${urlMapping.shortUrl}`}
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-lg font-bold text-[#2563EB] hover:text-[#1D4ED8] hover:underline flex items-center gap-1"
                 >
-                  {window.location.host}/s/{urlMapping.shortUrl}
+                  {import.meta.env.VITE_BACKEND_URL.replace(/^https?:\/\//, "")}/{urlMapping.shortUrl}
                   <LuExternalLink className="text-xs" />
                 </a>
               </div>

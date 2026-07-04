@@ -36,7 +36,7 @@ const CreateNewShorten = ({ setOpen, refetch }) => {
         },
       });
 
-      const shortenUrl = `${import.meta.env.VITE_REACT_FRONT_END_URL}/s/${res.shortUrl}`;
+      const shortenUrl = `${import.meta.env.VITE_BACKEND_URL}/${res.shortUrl}`;
       setCreatedShortUrl(shortenUrl);
       navigator.clipboard.writeText(shortenUrl);
       setIsCopied(true);
